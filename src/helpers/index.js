@@ -11,7 +11,7 @@ export const requestData = ({ url }) => {
 				} catch (e) {
 					console.error('JSON.parse error', e); // eslint-disable-line
 				} finally {
-					resolve(response);
+					resolve(response.issue);
 				}
 			} else {
 				const error = new Error(this.statusText);

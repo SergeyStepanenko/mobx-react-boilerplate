@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 
-import { requestData } from '../helpers';
+import { requestData, Promise_all } from '../helpers';
 import Issue from '../components/Issue';
 // import Table from '../components/Table';
 import { Table } from 'react-bootstrap';
@@ -38,8 +38,8 @@ export default class App extends PureComponent {
 										<td>{log.id}</td>
 										<td>{log.type}</td>
 										<td>{log.subject}</td>
-										<td>{log.status}</td>
-										<td>{log.assignedTo}</td>
+										<td>{log.status && log.status.name}</td>
+										<td>{log.assigned_to && log.assigned_to.name}</td>
 									</tr>
 								);
 							})
@@ -52,7 +52,11 @@ export default class App extends PureComponent {
 
 	@action
 	fetchData = async () => {
-		const { issue } = await requestData({ url: 'http://127.0.0.1:1337/issues/7824.json' });
-		this.props.store.addIssue(issue);
+
+		const promises = this.props.store.gitLogs.map(log => requestData({ url: `http://127.0.0.1:1337/issues/${log.id}.json` }));
+		const responses = await Promise_all(promises);
+
+		// const response= await requestData({ url: 'http://127.0.0.1:1337/issues/7824.json' });
+		this.props.store.addIssue(responses);
 	};
 }

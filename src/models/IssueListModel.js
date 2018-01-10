@@ -42,8 +42,8 @@ export default class IssueListModel {
 	// }
 
 	@action
-	addIssue(issue) {
-		this.issues.push(new IssueModel(issue));
+	addIssue(responses) {
+		this.issues.push(...responses);
 
 		this.issues.map(issue => {
 			const index = this.gitLogs.findIndex((log => Number(log.id) === Number(issue.id)));
