@@ -7,7 +7,7 @@ import Todo from './Todo';
 import Issue from './Issue';
 
 @observer
-class TodoList extends Component {
+export default class TodoList extends Component {
 	@observable newTodoTitle = '';
 
 	render() {
@@ -62,5 +62,3 @@ class TodoList extends Component {
 		e.preventDefault();
 	};
 }
-
-export default TodoList;

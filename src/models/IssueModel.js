@@ -4,11 +4,9 @@ export default class IssueModel {
     @observable issue;
     
     constructor(issue) {
-        console.log(issue);
-        
-        this.id = issue.id;
-        this.status = issue.status.name;
-        this.subject = issue.subject;
-        this.assignedTo = issue.assigned_to.name;
+    	this.id = issue.id;
+    	this.status = issue.status.name;
+    	this.subject = issue.subject;
+    	this.assignedTo = issue.assigned_to.name;
     }
 }
