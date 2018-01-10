@@ -4,7 +4,6 @@ import DevTools from 'mobx-react-devtools';
 
 import App from './containers/App';
 import IssueListModel from './models/IssueListModel';
-import TodoModel from './models/TodoModel';
 
 const store = new IssueListModel();
 

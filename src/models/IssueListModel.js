@@ -33,19 +33,17 @@ const gitLogs = [
 ];
 
 export default class IssueListModel {
-	@observable issues = [];
 	@observable gitLogs = gitLogs;
+	@observable sortAsc = true;
 
-	// @computed
-	// get unfinishedTodoCount() {
-	// 	return this.todos.filter(todo => !todo.finished).length;
-	// }
+	@computed
+	get sortingStatus() {
+		return (this.sortAsc) ? 'asc' : 'desc';
+	}
 
 	@action
 	addIssue(responses) {
-		this.issues.push(...responses);
-
-		this.issues.map(issue => {
+		responses.map(issue => {
 			const index = this.gitLogs.findIndex((log => Number(log.id) === Number(issue.id)));
 			
 			if (index !== -1) {
@@ -55,5 +53,14 @@ export default class IssueListModel {
 				};
 			}
 		});
+	}
+
+	@action
+	sortTable() {
+		this.sortAsc = !this.sortAsc;
+		const sortAsc = (a, b) => b.id - a.id;
+		const sortDsc = (a, b) => a.id - b.id;
+		const sortingFunc = this.sortAsc ? sortDsc : sortAsc;
+		this.gitLogs = this.gitLogs.sort(sortingFunc);
 	}
 }
