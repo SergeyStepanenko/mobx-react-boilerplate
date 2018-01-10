@@ -15,29 +15,34 @@ export default class App extends PureComponent {
 				<div>
 					<button onClick={this.fetchData}>Fetch data</button>
 				</div>
-				<ul>
+				{/* <ul>
 					{this.props.store.issues.map(issue => (
 						<Issue key={issue.id} issue={issue} />
 					))}
-				</ul>
-				{this.props.store.issues.map(issue => (
-					<Issue key={issue.id} issue={issue} />
-				))}
+				</ul> */}
 				<Table>
 					<thead>
 						<tr>
 							<th>Id</th>
-							<th>Type</th>
+							<th>Тип</th>
+							<th>Название</th>
+							<th>Статус</th>
+							<th>Назначена</th>
 						</tr>
 					</thead>
 					<tbody>
 						{
-							this.props.store.gitLogs.map(log => (
-								<tr>
-									<td>{log.id}</td>
-									<td>{log.type}</td>
-								</tr>
-							))
+							this.props.store.gitLogs.map(log => {
+								return (
+									<tr key={log.id}>
+										<td>{log.id}</td>
+										<td>{log.type}</td>
+										<td>{log.subject}</td>
+										<td>{log.status}</td>
+										<td>{log.assignedTo}</td>
+									</tr>
+								);
+							})
 						}
 					</tbody>
 				</Table>
